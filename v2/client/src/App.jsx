@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
-
-const socket = io.connect("http://10.145.173.71:3000");
+import { socket } from "./socket";
 
 export default function App() {
   const [message, setMessage] = useState("");
@@ -9,10 +7,8 @@ export default function App() {
   const [room, setRoom] = useState("");
 
   const sendMessage = () => {
-    socket.emit("send_message", {
-      message,
-      room,
-    });
+    if (!message || !room) return;
+    socket.emit("send_message", { message, room });
   };
 
   const joinRoom = () => {
@@ -22,10 +18,16 @@ export default function App() {
   };
 
   useEffect(() => {
-    socket.on("recive_message", (data) => {
+    const onReceiveMessage = (data) => {
       setServerMessage(data);
-    });
-  }, [socket]);
+    };
+
+    socket.on("recive_message", onReceiveMessage);
+
+    return () => {
+      socket.off("recive_message", onReceiveMessage);
+    };
+  }, []);
 
   return (
     <div>
