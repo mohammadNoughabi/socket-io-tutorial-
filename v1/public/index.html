@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <body>
+    <input type="text" id="message-input" placeholder="type something" />
+    <button id="button">Send message</button>
+    <div id="typing"></div>
+
+    <div id="output"></div>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+
+    <script>
+      const socket = io("http://10.145.173.71:3000");
+
+      socket.on("connect", () => {
+        console.log("Connected!");
+        console.log("My socket ID:", socket.id);
+      });
+
+      const messageInput = document.getElementById("message-input");
+
+      document.getElementById("button").addEventListener("click", () => {
+        const message = messageInput.value;
+        socket.emit("message", message);
+      });
+
+      messageInput.addEventListener("input", () => {
+        socket.emit("typing", socket.id);
+      });
+
+      const output = document.getElementById("output");
+
+      socket.on("message", (message) => {
+        const newMessage = document.createElement("p");
+        newMessage.innerText = message;
+        output.appendChild(newMessage);
+        messageInput.value = "";
+      });
+
+      socket.on("typing", (user) => {
+        const typingDiv = document.getElementById("typing");
+        typingDiv.innerText = `User with socket id ${user} is typing...`;
+        setTimeout(() => {
+          typingDiv.innerText = "";
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
