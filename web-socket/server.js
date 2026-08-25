@@ -1,6 +1,12 @@
+import http from "http";
 import { WebSocketServer } from "ws";
 
-const wss = new WebSocketServer({ port: 8080 });
+const server = http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end("Hello from HTTP");
+});
+
+const wss = new WebSocketServer({ server });
 
 wss.on("connection", (ws) => {
   console.log("Client connected");
@@ -9,3 +15,5 @@ wss.on("connection", (ws) => {
     ws.send("Hello Client!");
   });
 });
+
+server.listen(8080);
