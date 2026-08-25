@@ -1,17 +1,10 @@
-import { WebSocketServer } from "ws";
-
-const wss = new WebSocketServer({ port: 8080 });
-
-wss.on("connection", (ws) => {
-  console.log("Client connected");
-  ws.on("message", (data) => {
-    console.log("Received:", data.toString());
-    ws.send("Hello Client!");
-  });
-});
-
 // Creates a new WebSocket connection to the specified URL.
-const socket = new WebSocket("ws://localhost:8080");
+let socket;
+try {
+  socket = new WebSocket("ws://localhost:8080");
+} catch (error) {
+  console.log(error);
+}
 
 // Executes when the connection is successfully established.
 socket.addEventListener("open", (event) => {

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch index.js"
+    "dev:server": "node server.js",
+    "dev:client":"node client.js"
   },
   "keywords": [],
   "author": "",
