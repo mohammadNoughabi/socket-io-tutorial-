@@ -1,0 +1,11 @@
+**/node_modules
+**/.git
+**/.gitignore
+**/dist
+**/.env
+**/.env.*
+**/*.zip
+**/README.md
+.vscode
+.cursor
+terminals

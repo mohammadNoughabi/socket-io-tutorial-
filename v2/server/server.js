@@ -8,7 +8,8 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const clientPath = path.join(__dirname, "../client/dist");
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+const isProduction = process.env.NODE_ENV === "production";
 
 const isLocalNetworkOrigin = (origin) =>
   /^https?:\/\/(localhost|127\.0\.0\.1|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+)(:\d+)?$/.test(
@@ -17,7 +18,7 @@ const isLocalNetworkOrigin = (origin) =>
 
 const corsOptions = {
   origin(origin, callback) {
-    if (!origin || isLocalNetworkOrigin(origin)) {
+    if (!origin || isProduction || isLocalNetworkOrigin(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
