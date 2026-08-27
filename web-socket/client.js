@@ -10,7 +10,7 @@ try {
 socket.addEventListener("open", (event) => {
   console.log("WebSocket connection established!");
   // Sends a message to the WebSocket server.
-  socket.send("Hello Server!");
+  socket.send("Hello Server from web socket client!");
 });
 // Listen for messages and executes when a message is received from the server.
 socket.addEventListener("message", (event) => {

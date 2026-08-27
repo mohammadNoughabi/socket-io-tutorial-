@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
   console.log(`Client connected: ${socket.id}`);
 
   socket.on("send_message", (data) => {
-    io.to(data.room).emit("recive_message", data);
+    io.to(data.room).emit("receive_message", data);
   });
 
   socket.on("join_room", (room) => {
@@ -67,6 +67,5 @@ io.on("connection", (socket) => {
 });
 
 httpServer.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server started on http://0.0.0.0:${PORT}`);
-  console.log("Accessible on your local network via your machine IP");
+  console.log(`Server started on http://localhost:${PORT}`);
 });

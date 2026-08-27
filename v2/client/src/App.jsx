@@ -22,10 +22,10 @@ export default function App() {
       setServerMessage(data);
     };
 
-    socket.on("recive_message", onReceiveMessage);
+    socket.on("receive_message", onReceiveMessage);
 
     return () => {
-      socket.off("recive_message", onReceiveMessage);
+      socket.off("receive_message", onReceiveMessage);
     };
   }, []);
 

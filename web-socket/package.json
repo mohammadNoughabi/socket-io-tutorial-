@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:server": "node server.js",
-    "dev:client":"node client.js"
+    "dev:server": "node --watch server.js",
+    "dev:client":"node --watch client.js"
   },
   "keywords": [],
   "author": "",

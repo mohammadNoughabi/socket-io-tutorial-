@@ -10,7 +10,7 @@
     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
 
     <script>
-      const socket = io("http://10.145.173.71:3000");
+      const socket = io();
 
       socket.on("connect", () => {
         console.log("Connected!");
